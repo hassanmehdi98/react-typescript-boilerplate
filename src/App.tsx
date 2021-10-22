@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import { AuthContextProvider } from "./contexts/authentication/AuthContext";
 
-function App() {
+import routes from "./routes";
+import Home from "./views/home";
+import Login from "./views/login";
+
+const App: React.VFC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthContextProvider>
+      <Switch>
+        <Route exact path={routes.AUTHENTICATION.LOGIN} component={Login} />
+        <Route path={routes.MAIN.HOME} component={Home} />
+      </Switch>
+    </AuthContextProvider>
   );
-}
+};
 
 export default App;
