@@ -1,13 +1,23 @@
-const ROUTES = {
-  AUTHENTICATION: {
-    LOGIN: "/login",
-    REGISTER: "/signup",
-    VERIFICATION: "/signup/verification",
-  },
-  MAIN: {
-    HOME: "/",
-    DASHBORD: "/dashboard",
-  },
+import Home from "../views/home";
+import Login from "../views/login";
+import { RouteRoles, Routes } from "./types";
+
+const RoutesMap = {
+  LOGIN: "/login",
+  DASHBOARD: "/dashboard",
 };
 
-export default ROUTES;
+const ROUTES: Routes = [
+  {
+    path: RoutesMap.LOGIN,
+    Component: Login,
+    roles: [RouteRoles.ADMIN, RouteRoles.CUSTOMER],
+  },
+  {
+    path: RoutesMap.DASHBOARD,
+    Component: Home,
+    roles: [RouteRoles.CUSTOMER],
+  },
+];
+
+export { ROUTES, RoutesMap };

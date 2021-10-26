@@ -2,7 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../contexts/authentication/AuthContext";
-import routes from "../../routes";
+import { RoutesMap } from "../../routes";
 
 const Home: React.VFC = () => {
   const {
@@ -11,7 +11,7 @@ const Home: React.VFC = () => {
   } = useContext(AuthContext);
   const history = useHistory();
 
-  if (!isAuthenticated) history.replace(routes.AUTHENTICATION.LOGIN);
+  if (!isAuthenticated) history.replace(RoutesMap.LOGIN);
 
   return (
     <div>

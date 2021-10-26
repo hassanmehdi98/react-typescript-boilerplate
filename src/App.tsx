@@ -1,17 +1,17 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { AuthContextProvider } from "./contexts/authentication/AuthContext";
-
-import routes from "./routes";
-import Home from "./views/home";
-import Login from "./views/login";
+import { ROUTES } from "./routes";
 
 const App: React.VFC = () => {
   return (
     <AuthContextProvider>
       <Switch>
-        <Route exact path={routes.AUTHENTICATION.LOGIN} component={Login} />
-        <Route path={routes.MAIN.HOME} component={Home} />
+        {ROUTES.map(({ path, Component, roles, exact = false }) => (
+          <Route path={path} exact={exact}>
+            <Component __roles={roles} />
+          </Route>
+        ))}
       </Switch>
     </AuthContextProvider>
   );
