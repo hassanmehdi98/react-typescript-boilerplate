@@ -1,4 +1,7 @@
 import Config from "../Config";
+import { API_STATUS_CODES } from "../constants";
+import { errorHandler } from "../utils/error";
+import { UserModel } from "./models/user.model";
 import { ApiMethods, Response, TOKEN_KEY } from "./types";
 
 export default class API {
@@ -51,7 +54,7 @@ export default class API {
     return this;
   }
 
-  async send(formData?: boolean): Promise<Response> {
+  async send<T>(formData?: boolean): Promise<Response<T>> {
     const route: string = Object.keys(this._queryParams).length
       ? `${this._apiRoute}${this._sanitizeQueryParams()}`
       : this._apiRoute;
@@ -65,7 +68,7 @@ export default class API {
     if (this._token) {
       headers["Authorization"] = this._token;
     }
-    const response: Response = {
+    const response: Response<T> = {
       status: 200,
       data: null,
     };
@@ -78,16 +81,25 @@ export default class API {
     });
     response.status = api.status;
     const data = await api.json();
-    response.data = data;
+    if (api.status >= API_STATUS_CODES.BAD_REQUEST) {
+      response.error = errorHandler(response.status, data);
+    } else {
+      response.data = data;
+    }
 
     return response;
   }
 }
 
 // const login = async () => {
-//   const api = await new API("/login", "POST")
-//     .addBodyData({ email: "abc@example.com", password: "abc123" })
-//     .addQueryParams({ asVendor: true })
-//     .attachToken()
-//     .send();
+//   try {
+//     const { data } = await new API("/login", "POST")
+//       .addBodyData({ email: "abc@example.com", password: "abc123" })
+//       .addQueryParams({ asVendor: true })
+//       .attachToken()
+//       .send<UserModel>();
+//     return data;
+//   } catch (err) {
+//     console.log(err);
+//   }
 // };

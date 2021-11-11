@@ -1,10 +1,13 @@
-type EnvironmentType = "DEV" | "MASTER";
+type EnvironmentType = "DEV" | "MASTER" | "LOCAL";
 type ConfigType = {
-  ENVIRONMENTS: Record<EnvironmentType, any>;
+  ENVIRONMENTS: Record<EnvironmentType, Record<string, any>>;
 };
 
 const Config: ConfigType = {
   ENVIRONMENTS: {
+    LOCAL: {
+      API_URL: "http://localhost:3001/v1",
+    },
     DEV: {
       API_URL: "https://dev.abc.com/v1",
     },

@@ -1,0 +1,20 @@
+export const API_STATUS_CODES = {
+  SUCCESS: 200,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+  RATE_LIMIT_EXCEEDED: 429,
+  INTERNAL_SERVER_ERROR: 500,
+};
+
+export const API_STATUS_DEFAULT_MESSAGE = {
+  [API_STATUS_CODES.SUCCESS]: "Success",
+  [API_STATUS_CODES.BAD_REQUEST]: "Bad request, Please check input",
+  [API_STATUS_CODES.UNAUTHORIZED]: "Not authorized",
+  [API_STATUS_CODES.FORBIDDEN]: "Access not allowed",
+  [API_STATUS_CODES.NOT_FOUND]: "Not found",
+  [API_STATUS_CODES.RATE_LIMIT_EXCEEDED]:
+    "Too many request, Please try again later",
+  [API_STATUS_CODES.INTERNAL_SERVER_ERROR]: "Something went wrong",
+};
